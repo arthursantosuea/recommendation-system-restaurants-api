@@ -9,6 +9,7 @@ from sklearn.metrics.pairwise import linear_kernel
 
 import json
 
+
 # Função para extrair dados (cidades ou países) do input
 def extracting_data(description, data, dataset, recommendations):
     data_list = dataset[data].unique()
@@ -120,8 +121,6 @@ def recommendation(user_input, dataset):
     # Ordenando o dataset pela similaridade
     recommendations.sort_values(by="similarity", ascending=False, inplace=True)
 
-    # return dataset[["name", "city", "country", "price", "style", "reviews", "similarity"]]
-
     return recommendations.index.values
 
 
@@ -138,7 +137,6 @@ def restaurants_data(recommended_restaurants, dataset):
             break
 
     response = json.loads(restaurants.to_json(orient="records"))
-    # response_json = json.loads(response)
 
     return response
 
@@ -147,8 +145,3 @@ data_restaurants = pd.read_csv("../datasets/recommendation_dataset.csv")
 
 # Lendo o dataset para exposição dos dados
 data_frontend = pd.read_csv("../datasets/restaurants_TripAdvisor.csv")
-
-# user_input = input("Input: ")
-# rec = recommendation(user_input, data_restaurants)
-# x = restaurants_data(rec, data_frontend)
-# x.to_csv("rec.csv", index=True, header=True)
