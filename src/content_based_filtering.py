@@ -137,7 +137,6 @@ def restaurants_data(recommended_restaurants, dataset):
             break
 
     response = json.loads(restaurants.to_json(orient="records"))
-
     return response
 
 # Lendo o dataset para recomendação

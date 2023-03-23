@@ -10,7 +10,7 @@ CORS(app)
 def route_recommendation():
     if request.method == 'POST': 
         try:
-            description = request.data
+            description = request.get_json()
             raw_recommentadions = cbf.recommendation(description, cbf.data_restaurants)
             recommendations = cbf.restaurants_data(raw_recommentadions, cbf.data_frontend)
             return recommendations
