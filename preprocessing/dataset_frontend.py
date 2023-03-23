@@ -1,5 +1,13 @@
 import pandas as pd
 from ast import literal_eval
+
+
+def convert_to_list(x):
+    try:
+        literal_eval(x)
+        return x
+    except ValueError:
+        return pd.NA
     
 
 # Importando dataset
@@ -16,6 +24,12 @@ df_ta.dropna(subset=["Name", "City", "Cuisine Style", "Price Range", "Reviews"],
 # Convertendo strings para itens de lista
 df_ta["Cuisine Style"] = df_ta["Cuisine Style"].apply(lambda x: literal_eval(x))
 df_ta["Cuisine Style"] = df_ta["Cuisine Style"].apply(lambda x: ', '.join(x))
+
+# Excluindo elementos nulos
+df_ta.dropna(subset=["Name", "City", "Cuisine Style", "Price Range", "Reviews"], inplace=True)
+
+# Checando se os elementos são nulos
+df_ta["Reviews"] = df_ta["Reviews"].apply(convert_to_list)
 
 # Excluindo elementos nulos
 df_ta.dropna(subset=["Name", "City", "Cuisine Style", "Price Range", "Reviews"], inplace=True)
